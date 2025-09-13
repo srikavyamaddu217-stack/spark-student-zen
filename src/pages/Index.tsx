@@ -45,26 +45,42 @@ const Index = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/20 to-muted">
+    <div className="min-h-screen font-jakarta" style={{ background: 'var(--gradient-background)' }}>
+      {/* Floating orbs for visual flair */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full opacity-20 animate-float" 
+             style={{ background: 'var(--gradient-glow)' }} />
+        <div className="absolute top-3/4 right-1/4 w-48 h-48 rounded-full opacity-15 animate-float" 
+             style={{ background: 'var(--gradient-glow)', animationDelay: '-1s' }} />
+        <div className="absolute bottom-1/4 left-1/3 w-32 h-32 rounded-full opacity-10 animate-float" 
+             style={{ background: 'var(--gradient-glow)', animationDelay: '-2s' }} />
+      </div>
+
       <WellnessHeader 
         onCheckInClick={() => setShowCheckIn(true)}
         hasCheckedInToday={!!todayEntry}
       />
       
-      <main className="container mx-auto px-4 py-8 space-y-8">
+      <main className="relative container mx-auto px-4 py-8 space-y-8">
         {showCheckIn && (
-          <MoodCheckIn 
-            onSubmit={handleMoodSubmit}
-            onCancel={() => setShowCheckIn(false)}
-          />
+          <div className="animate-slide-up">
+            <MoodCheckIn 
+              onSubmit={handleMoodSubmit}
+              onCancel={() => setShowCheckIn(false)}
+            />
+          </div>
         )}
         
-        <WellnessDashboard moodEntries={moodEntries} />
+        <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          <WellnessDashboard moodEntries={moodEntries} />
+        </div>
         
-        <WellnessRecommendations 
-          recentMood={moodEntries[0]}
-          moodTrend={moodEntries.slice(0, 7)}
-        />
+        <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <WellnessRecommendations 
+            recentMood={moodEntries[0]}
+            moodTrend={moodEntries.slice(0, 7)}
+          />
+        </div>
       </main>
     </div>
   );

@@ -9,7 +9,11 @@ import {
   Flower2, 
   Headphones,
   MapPin,
-  Clock
+  Clock,
+  Sparkles,
+  Zap,
+  Shield,
+  Phone
 } from "lucide-react";
 import type { MoodEntry } from "@/pages/Index";
 
@@ -26,6 +30,7 @@ interface Recommendation {
   priority: 'high' | 'medium' | 'low';
   duration: string;
   icon: any;
+  color: string;
 }
 
 export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecommendationsProps) => {
@@ -51,7 +56,8 @@ export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecom
         category: 'mindfulness',
         priority: 'high',
         duration: '5-10 min',
-        icon: Flower2
+        icon: Flower2,
+        color: 'wellness-amazing'
       });
     }
 
@@ -64,7 +70,8 @@ export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecom
         category: 'social',
         priority: 'high',
         duration: '30-50 min',
-        icon: MapPin
+        icon: MapPin,
+        color: 'wellness-good'
       });
     }
 
@@ -77,7 +84,8 @@ export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecom
         category: 'rest',
         priority: 'medium',
         duration: '20 min',
-        icon: Moon
+        icon: Moon,
+        color: 'wellness-okay'
       });
       
       recommendations.push({
@@ -87,7 +95,8 @@ export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecom
         category: 'activity',
         priority: 'medium',
         duration: '15-30 min',
-        icon: Coffee
+        icon: Coffee,
+        color: 'wellness-low'
       });
     }
 
@@ -100,7 +109,8 @@ export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecom
         category: 'mindfulness',
         priority: 'medium',
         duration: '10-15 min',
-        icon: Headphones
+        icon: Headphones,
+        color: 'neon-primary'
       },
       {
         id: '6',
@@ -109,7 +119,8 @@ export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecom
         category: 'academic',
         priority: 'low',
         duration: '5 min',
-        icon: BookOpen
+        icon: BookOpen,
+        color: 'neon-secondary'
       }
     );
 
@@ -120,66 +131,110 @@ export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecom
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'mindfulness': return 'bg-wellness-calm/10 text-wellness-calm border-wellness-calm/20';
-      case 'activity': return 'bg-wellness-positive/10 text-wellness-positive border-wellness-positive/20';
-      case 'rest': return 'bg-wellness-neutral/10 text-wellness-neutral border-wellness-neutral/20';
-      case 'social': return 'bg-accent/10 text-accent border-accent/20';
-      case 'academic': return 'bg-primary/10 text-primary border-primary/20';
-      default: return 'bg-secondary text-secondary-foreground';
+      case 'mindfulness': return 'hsl(var(--wellness-amazing))';
+      case 'activity': return 'hsl(var(--wellness-good))';
+      case 'rest': return 'hsl(var(--wellness-okay))';
+      case 'social': return 'hsl(var(--wellness-low))';
+      case 'academic': return 'hsl(var(--neon-secondary))';
+      default: return 'hsl(var(--neon-primary))';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-wellness-alert text-white';
-      case 'medium': return 'bg-wellness-concern text-white';
-      case 'low': return 'bg-wellness-positive text-white';
-      default: return 'bg-secondary text-secondary-foreground';
+      case 'high': return 'hsl(var(--wellness-rough))';
+      case 'medium': return 'hsl(var(--wellness-okay))';
+      case 'low': return 'hsl(var(--wellness-good))';
+      default: return 'hsl(var(--neon-primary))';
     }
   };
 
   return (
-    <Card className="border-0 shadow-xl bg-gradient-to-br from-card via-card to-primary/5">
-      <CardHeader>
-        <CardTitle className="flex items-center text-foreground">
-          <Lightbulb className="w-5 h-5 mr-2 text-accent" />
-          Personalized Wellness Recommendations
-        </CardTitle>
-        <CardDescription>
-          Based on your recent mood patterns and wellness data
-        </CardDescription>
+    <Card className="relative border-0 shadow-2xl overflow-hidden"
+          style={{ 
+            background: 'var(--gradient-card)',
+            boxShadow: 'var(--shadow-glass)'
+          }}>
+      {/* Animated gradient border */}
+      <div className="absolute inset-0 bg-gradient-to-r from-neon-primary/20 via-neon-accent/20 to-neon-secondary/20 opacity-50 animate-shimmer" />
+      
+      <CardHeader className="relative">
+        <div className="flex items-center space-x-3">
+          <div className="relative">
+            <Lightbulb className="w-7 h-7 text-neon-accent animate-float" />
+            <div className="absolute inset-0 w-7 h-7 text-neon-accent animate-pulse opacity-50" />
+          </div>
+          <div>
+            <CardTitle className="text-2xl font-bold font-grotesk bg-gradient-to-r from-neon-primary via-neon-accent to-neon-secondary bg-clip-text text-transparent">
+              Personalized Wellness Recommendations
+            </CardTitle>
+            <CardDescription className="font-jakarta text-base text-muted-foreground">
+              Based on your recent mood patterns and wellness data ✨
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      
+      <CardContent className="relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           {recommendations.map((rec) => {
             const IconComponent = rec.icon;
             return (
               <div
                 key={rec.id}
-                className="group p-4 rounded-lg border bg-gradient-to-br from-card to-secondary/10 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]"
+                className="group relative p-5 rounded-2xl border transition-all duration-500 hover:scale-[1.02] cursor-pointer"
+                style={{ 
+                  background: 'var(--gradient-card)',
+                  borderColor: 'hsl(var(--border) / 0.3)',
+                  boxShadow: 'var(--shadow-glass)'
+                }}
               >
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                    <IconComponent className="w-5 h-5 text-primary-foreground" />
+                {/* Hover glow effect */}
+                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-all duration-500"
+                     style={{ 
+                       background: `radial-gradient(circle at center, hsl(var(--${rec.color})) 0%, transparent 70%)`
+                     }} />
+                
+                <div className="relative flex items-start space-x-4">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center animate-float group-hover:animate-pulse-glow"
+                         style={{ 
+                           background: `linear-gradient(135deg, hsl(var(--${rec.color})) 0%, hsl(var(--${rec.color})) 100%)`,
+                           boxShadow: `0 4px 20px hsl(var(--${rec.color}) / 0.3)`
+                         }}>
+                      <IconComponent className="w-6 h-6 text-white" />
+                    </div>
                   </div>
-                  <div className="flex-grow space-y-2">
+                  
+                  <div className="flex-grow space-y-3">
                     <div className="flex items-start justify-between">
-                      <h4 className="font-medium text-foreground group-hover:text-primary transition-colors">
+                      <h4 className="font-bold font-grotesk text-lg text-foreground group-hover:text-neon-primary transition-colors">
                         {rec.title}
                       </h4>
-                      <div className="flex items-center space-x-1">
-                        <Clock className="w-3 h-3 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">{rec.duration}</span>
+                      <div className="flex items-center space-x-1 text-muted-foreground">
+                        <Clock className="w-3 h-3" />
+                        <span className="text-xs font-jakarta">{rec.duration}</span>
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    
+                    <p className="text-sm text-muted-foreground font-jakarta leading-relaxed">
                       {rec.description}
                     </p>
+                    
                     <div className="flex items-center space-x-2">
-                      <Badge variant="outline" className={getCategoryColor(rec.category)}>
+                      <Badge className="font-jakarta text-xs font-medium"
+                             style={{ 
+                               backgroundColor: `${getCategoryColor(rec.category)} / 0.2`,
+                               color: getCategoryColor(rec.category),
+                               border: `1px solid ${getCategoryColor(rec.category)} / 0.3`
+                             }}>
                         {rec.category}
                       </Badge>
-                      <Badge className={getPriorityColor(rec.priority)}>
+                      <Badge className="font-jakarta text-xs font-medium text-white"
+                             style={{ 
+                               backgroundColor: getPriorityColor(rec.priority)
+                             }}>
+                        <Zap className="w-3 h-3 mr-1" />
                         {rec.priority}
                       </Badge>
                     </div>
@@ -190,16 +245,44 @@ export const WellnessRecommendations = ({ recentMood, moodTrend }: WellnessRecom
           })}
         </div>
         
-        <div className="mt-6 p-4 bg-gradient-to-r from-secondary/50 to-primary/5 rounded-lg border">
-          <div className="flex items-center justify-between">
-            <div>
-              <h4 className="font-medium text-foreground">Need immediate support?</h4>
-              <p className="text-sm text-muted-foreground">
-                Crisis resources are available 24/7 for urgent mental health needs
-              </p>
+        {/* Crisis support section */}
+        <div className="relative p-6 rounded-2xl border overflow-hidden" 
+             style={{ 
+               background: 'var(--gradient-card)',
+               borderColor: 'hsl(var(--wellness-rough) / 0.3)'
+             }}>
+          {/* Animated background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-wellness-rough/10 to-wellness-low/10 animate-pulse opacity-50" />
+          
+          <div className="relative flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-xl animate-pulse-glow"
+                   style={{ 
+                     background: 'linear-gradient(135deg, hsl(var(--wellness-rough)) 0%, hsl(var(--wellness-low)) 100%)',
+                     boxShadow: 'var(--shadow-neon-accent)'
+                   }}>
+                <Shield className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h4 className="font-bold font-grotesk text-lg text-foreground flex items-center">
+                  Need immediate support?
+                  <Sparkles className="w-4 h-4 ml-2 text-neon-accent animate-pulse" />
+                </h4>
+                <p className="text-sm text-muted-foreground font-jakarta">
+                  Crisis resources are available 24/7 for urgent mental health needs
+                </p>
+              </div>
             </div>
-            <Button variant="outline" className="shrink-0">
-              Get Help
+            
+            <Button className="relative overflow-hidden group font-grotesk font-semibold transition-all duration-500"
+                    style={{
+                      background: 'linear-gradient(135deg, hsl(var(--wellness-rough)) 0%, hsl(var(--wellness-low)) 100%)',
+                      boxShadow: 'var(--shadow-neon-accent)'
+                    }}>
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer" />
+              <Phone className="w-4 h-4 mr-2 relative z-10" />
+              <span className="relative z-10">Get Help</span>
             </Button>
           </div>
         </div>
