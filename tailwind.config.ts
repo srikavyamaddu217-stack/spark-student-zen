@@ -57,6 +57,13 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        wellness: {
+          calm: "hsl(var(--wellness-calm))",
+          positive: "hsl(var(--wellness-positive))",
+          neutral: "hsl(var(--wellness-neutral))",
+          concern: "hsl(var(--wellness-concern))",
+          alert: "hsl(var(--wellness-alert))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

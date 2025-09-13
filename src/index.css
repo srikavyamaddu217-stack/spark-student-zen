@@ -2,41 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Wellness Platform Design System - Calming, therapeutic colors for mental health */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Calming teal primary */
+    --primary: 174 44% 49%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Soft sage secondary */
+    --secondary: 140 20% 94%;
+    --secondary-foreground: 174 44% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 140 15% 96%;
+    --muted-foreground: 215 20% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Warm coral accent */
+    --accent: 12 76% 68%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Gentle warning colors */
+    --destructive: 0 72% 65%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 140 15% 88%;
+    --input: 140 15% 88%;
+    --ring: 174 44% 49%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Wellness-specific colors */
+    --wellness-calm: 174 44% 49%;
+    --wellness-positive: 140 65% 55%;
+    --wellness-neutral: 45 85% 70%;
+    --wellness-concern: 25 85% 65%;
+    --wellness-alert: 0 72% 65%;
+
+    /* Gradients */
+    --gradient-calm: linear-gradient(135deg, hsl(174 44% 49%), hsl(200 44% 55%));
+    --gradient-wellness: linear-gradient(135deg, hsl(140 65% 55%), hsl(174 44% 49%));
+    --gradient-background: linear-gradient(180deg, hsl(210 20% 98%), hsl(140 15% 96%));
+    
+    /* Shadows */
+    --shadow-wellness: 0 4px 20px -4px hsl(174 44% 49% / 0.15);
+    --shadow-card: 0 2px 10px -2px hsl(215 25% 15% / 0.08);
+    
+    /* Animations */
+    --transition-wellness: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
